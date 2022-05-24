@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 mkdir -p ./build/docs/report;
-lualatex -output-directory=./build/docs/report ./docs/report/report.tex
+export $(cat ./docs/report/.env | xargs);
+lualatex -output-directory=./build/docs/report ./docs/report/report.tex;

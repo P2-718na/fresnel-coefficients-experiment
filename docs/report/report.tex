@@ -8,6 +8,7 @@
 \usepackage{indentfirst}
 \usepackage{graphicx}
 \usepackage[italian]{babel}
+\usepackage{catchfile}
 
 % FIXME swap to calibri on windows? no license for linux
 \setmainfont{Carlito}
@@ -22,12 +23,18 @@
 \setlength{\parindent}{10mm}
 \graphicspath{ {./assets} }
 
+% Allow use of command \getenv{VARNAME}.
+% Taken from: https://tex.stackexchange.com/questions/62010/can-i-access-system-environment-variables-from-latex-for-instance-home
+\newcommand{\getenv}[2][]{
+  \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
+  \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+
 \begin{document}
 
 \begin{center}
-  \huge Titolo \\
-  \large Francesco Platini 000000000000. Matteo Bonacini 0000000000.\\
-  Data
+  \huge Misura dell'angolo di Brewster di un prisma mediante le formule di Fresnel \\ %todo this is just a placeholder title for now
+  \large Francesco Platini \getenv{MAT1}. Matteo Bonacini \getenv{MAT2}.\\ % see readme on how to use this
+  \today
 \end{center}
 
 % Title spacing
@@ -81,7 +88,7 @@
 
   \begin{equation}
     \theta_B = \arctan{
-      \frac {n_2} {n_1}
+      \frac {n_2} {n_1}as
     }\label{eq:Brewster's law}
   \end{equation}
 
@@ -146,40 +153,62 @@
   \blindtext[1]
 
 \newpage
-\section{Appendice}
-  \subsection{Calcolo incertezza strumentale}
-    La fonte principale di incertezza strumentale è dovuta alla precisione dell’ADC del microcontrollore, e dalla precisione del potenziale di riferimento della scheda.
-    L’incertezza strumentale del sensore è considerata trascurabile, e qualsiasi suo effetto sarà incluso nelle incertezze casuali che abbiamo considerato.
+\section{Appendice}\label{sec:appendice}
+  \subsection{Calcolo incertezza strumentale}\label{subsec:calcolo-incertezza-strumentale}
+    Per effettuare le misure d'intensità luminosa, la scheda \emph{Arduino} compara
+    il segnale $V_{temt}$ in uscita dal sensore \emph{TEMT6000} con il potenziale
+    $V_{cc}$ dell'alimentatore.
+    Dato che il segnale $V_{cc}$ può essere soggetto a fluttuazioni significative % todo precisa che le fluttuazioni avvengono in tempi maggiori a quelli del ciclo di clock di arduino
+    (dell'ordine del ~10\%), abbiamo utilizzato il potenziale di riferimento
+    $V_{ref}$ di \emph{Arduino} come strumento di calibrazione.
+    La formula utilizzata per ottenere una misura $I_i$ (che abbiamo riportato con le
+    incertezze già calcolate) è:
 
-    L’incertezza dell’ADC è stata ottenuta direttamente dal datasheet della scheda ATmega328P (sezione 23.1 ADC
-  Features). L’incertezza assoluta indicata dal costruttore della scheda è di $$\pm$$ 2LSB(todo spiega LSB). Questo
-  valore tiene conto di tutte le possibili fonti di errore interne all’ADC, ed è un limite conservativo per l’errore.
+    % fixme questa formula è da sistemare. Il fatto è che in realtà v_temt non è
+    %  espresso in volt, ma in LSB. (Intrinsecamente, dentro di lui compare di
+    %  nuovo V_cc, quindi i due si semplificano.
+    \begin{equation}
+      I_i = k \frac {
+        V_{cc} (\pm 2LSB) \cdot V_{temt} (\pm 2LSB)
+      } {
+        V_{ref} (\pm 0.4\%)
+      }\label{eq:misura-intensità}
+    \end{equation}
 
-    Per effettuare le misure, l’ADC utilizza il segnale “VREF(1.1V)” della scheda arduino come segnale di
-calibrazione. L’incertezza di VREF è stata stimata da (riferimento), e ha come limite superiore lo 0.4\%. La formula
-che utilizziamo per ottenere il valore (espresso in LSB) del segnale in entrata è:
-    % I_{cor} = \frac {
-    %   V_{ref} * 1000 * I_{raw}
-    % } {
-    %   V_{cc} V_{max}
-    % }
-    Dove $I_{corr}$ è il segnale corretto tramite $V_ref, I_{raw}$ è il segnale letto dall’ADC prima di apportare la correzione, $V_{max}$ è il potenziale massimo reale che vogliamo misurare.
-    Propagando l’incertezza su $V_{ref}$ si ottiene quindi che $I_{corr}$ ha un incertezza associata di 0.4%.
-    L’errore iniziale di offset di VREF è stato ignorato, visto che per le nostre misure si traduce solamente in un fattore moltiplicativo (a noi non interessa un valore assoluto di intensità, ma l’importante è i dati misurati siano tutti in proporzione).
+    \noindent con $k$ costante di proporzionalità, scelta come % todo spiega come mai. Il concetto è che basta sapere che V_ref sia fisso. 1.1V è il valore nominale, l'offset a noi non importa.
+    $k = \frac {1.1} {1000 \cdot 5} (LSB \cdot V^{-1})$ in modo da ottenere
+    un intervallo di valori in uscita $0 \leq I_i < 1024$ (corrispondente
+    all'intervallo di \emph{output} originale, senza correzione).
+    In questa formula compaiono tre diverse componenti fisiche sorgenti di errore.
+    L'\emph{ADC} di \emph{ATmega328P} e il potenziale di riferimento $V_{ref}$
+    di \emph{Arduino Uno} sono le principali;
+    abbiamo considerato trascurabile l’incertezza strumentale del sensore, dato
+    che non è riportata nel \emph{datasheet} e %todo add reference to datasheet
+    qualsiasi suo effetto sarà incluso
+    nelle incertezze casuali stimate in (vedi sezione 6.2). %todo add reference to section
 
-    L’incertezza strumentale totale è quindi di $\pm$ 2LSB $\pm$ 0.4%
+    Abbiamo ottenuto l’incertezza dell’\emph{ADC} direttamente dal
+    \emph{datasheet} di \emph{ATmega328P} (sezione 23.1 ADC  Features): % todo add reference
+    il produttore indica un'incertezza massima assoluta di $\pm 2LSB$. % todo add note for LSB
+    Questo valore tiene conto di tutte le possibili fonti di errore interne
+    all’\emph{ADC} ed è da considerarsi come limite superiore.
+    Per quanto riguarda l'incertezza del potenziale di riferimento, abbiamo
+    utilizzato il lavoro di Main[ref], dove ha misurato un errore %todo add reference
+    massimo dello $0.4\%$.
+    Propagando gli errori nella formula (??) abbiamo ottenuto un incertezza di % add referenceee
+    (??)
 
-  \subsection{Calcolo errore 2}
+  \subsection{Calcolo incertezza casuale}\label{subsec:calcolo-incertezza-casuale}
     A causa di limitazioni strumentali, non ci è stato possibile ottenere un campione
     significativo di misure di intensità per ogni angolo. Possiamo comunque ottenere
     una stima delle incertezze casuali facendo una semplice assunzione: osserviamo che
     tra un angolo e un altro, il nostro apparato sperimentale non cambia; di conseguenza,
     se potessimo prendere un numero molto grande di misure per ogni valore di theta,
     ci aspetteremmo di ottenere una serie di distribuzioni di intensità $I_\theta$
-che differiscono solo per il valore medio, ma non per la deviazione standard.
-Per stimare questa deviazione standard, quindi, abbiamo calcolato la semmidispersione
-massima (miglior stima di deviazione standard per poche misure) per tutte le serie
-di misure fatte sullo stesso angolo, e come sigma abbiamo preso la media di queste.
+    che differiscono solo per il valore medio, ma non per la deviazione standard.
+    Per stimare questa deviazione standard, quindi, abbiamo calcolato la semmidispersione
+    massima (miglior stima di deviazione standard per poche misure) per tutte le serie
+    di misure fatte sullo stesso angolo, e come sigma abbiamo preso la media di queste.
 
 \end{document}
 

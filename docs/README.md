@@ -1,4 +1,6 @@
 ### Building
+Setup environment variables for private data by creating a .env file in the appropriate
+directory.
 on repo root directory, run:
 ```bash
 pipenv run build:report

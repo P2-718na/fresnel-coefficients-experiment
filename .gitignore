@@ -4,6 +4,7 @@
 .idea
 .code
 .ipynb_checkpoints
+.env
 
 ### Latex
 build
