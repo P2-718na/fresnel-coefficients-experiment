@@ -6,7 +6,7 @@
 .ipynb_checkpoints
 
 ### Latex
-docs/report/build
+build
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
