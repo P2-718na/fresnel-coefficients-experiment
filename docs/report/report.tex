@@ -1,17 +1,39 @@
 \documentclass[12pt, letterpaper, twoside]{article}
-\usepackage[utf8]{inputenc}
+
+\usepackage{fontspec}
+%swap to calibri on windows? no license for linux
+\setmainfont{Carlito}
+
+\usepackage[left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm]{geometry}
+\usepackage{setspace}
 
 \begin{document}
+\begin{center}
+    \huge Titolo \\
+    \vspace{0.5cm}
+    \large Francesco Platini mat. Matteo Bonacini mat.\\
+    \vspace*{1pt}
+    Data
 
-\begin{abstract}
+\end{center}
+\singlespacing
+
+\section{Abstract}
 This is a simple paragraph at the beginning of the document. A brief introduction to the main subject.
-\end{abstract}
+\section{Introduzione}
+Introduzione
+\section{Apparato sperimentale}
+Apparato sperimentale
+\section{Risultati e discussione}
+Risultati
+\section{Conclusioni}
+conclusioni
+%In this document somasdmeters
+%were added. There is an encoding package,
+%and pagesize and fontsize parameters.
 
-In this document somasdmeters
-were added. There is an encoding package,
-and pagesize and fontsize parameters.
-
-This line will start a second paragraph. And I can
- break\\ the lines \\ and continue on a new line.
 
 \end{document}
