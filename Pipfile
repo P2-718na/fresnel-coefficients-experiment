@@ -1,0 +1,2 @@
+[scripts]
+"build:report" = "sh ./scripts/build:report.sh"
