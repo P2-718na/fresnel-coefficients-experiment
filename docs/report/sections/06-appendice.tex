@@ -106,3 +106,8 @@
                                                                       % dividere.
   % btw qui ci sarebbe da dividere per sqrt(2), visto che ho preso 2 punti per ogni angolo.
 \endinput
+
+% Continuo con la roba dell'errore. Arduino può misurare un errore di intensità
+% per via di Vcc. Ora, vcc può avere variazioni rapide, ma può anche avere
+% variaziuoni più lente, dell'ordine di tutto lo sweep di angoli, che sono
+% in pratica erorri sistematici. Questo fixa tutto.
