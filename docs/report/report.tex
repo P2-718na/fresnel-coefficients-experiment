@@ -11,6 +11,7 @@
 \usepackage{catchfile}
 \usepackage{multicol}
 \usepackage{amsmath}
+\usepackage{subcaption}
 
 % FIXME swap to calibri on windows? no license for linux
 \setmainfont{Carlito}
@@ -23,7 +24,7 @@
   bottom=2cm
 }
 \setlength{\parindent}{10mm}
-\graphicspath{ {./assets} }
+\graphicspath{ {./assets}, {../../assets} }
 
 % Allow use of command \getenv{VARNAME}.
 % Taken from: https://tex.stackexchange.com/questions/62010/can-i-access-system-environment-variables-from-latex-for-instance-home
@@ -41,24 +42,24 @@
 
 % Title spacing
 
-\section{Abstract}\label{sec:abstract}
+\section{Sommario}\label{sec:abstract}
   In questo esperimento abbiamo analizzato il comportamento di un raggio di luce
   che colpisce la superficie di un prisma di materiale ignoto.
   Abbiamo verificato che l’intensità luminosa riflessa segue l’andamento
-  previsto dalle leggi di Fresnel e abbiamo misurato l’angolo di Brewster per il
-  materiale del nostro prisma.
-  I risultati ottenuti sono ?????????? compatibili/incompatibili
+  previsto dalle leggi di Fresnel e abbiamo utilizzato queste leggi per misurare
+  il valore dell'angolo di Brewster per il prisma.
+  I risultati ottenuti sono ?????????? compatibili/incompatibili % todo
 
 \section{Introduzione}\label{sec:introduzione}
-  Quando un raggio luminoso colpisce una superficie di separazione tra due mezzi
+  Quando un raggio luminoso colpisce una superficie di separazione tra due
   dielettrici con indici di rifrazione $n_1$ e $n_2$ diversi, si possono verificare
   i fenomeni della riflessione e rifrazione della luce.
-  Le equazioni di Fresnel, derivabili direttamente dalle Equazioni di Maxwell,
+  Le equazioni di Fresnel, derivabili direttamente dalle equazioni di Maxwell, % fixme in equazioni ci va maiuscola?
   descrivono questo comportamento prevedendo quale frazione d'intensità
-  luminosa viene riflessa e rifratta, per ciascuna delle due componenti di
+  luminosa viene riflessa e quale rifratta, per ciascuna delle due componenti di
   polarizzazione.
   Indichiamo con $R_\pi$ e $R_\sigma$ le frazioni d'intensità luminosa riflessa
-  polarizzata, rispettivamente, parallelamente e perpendicolarmente al piano
+  polarizzate, rispettivamente, parallelamente e perpendicolarmente al piano
   d'incidenza.
   Si dimostra che valgono:
 
@@ -121,15 +122,31 @@
 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=10cm]{instrumental-apparatus.png}
-      \caption{
-        \emph{
-          Apparato sperimentale. A partire da sinistra, in senso orario,
-          si trovano: laser(1), filtri polaroid(2, 3), guida circolare(4),
-          prisma(5), sensore(6), Arduino(7).
+      \caption{Apparato sperimentale e schema circuitale.}
+      \begin{subfigure}{.4\textwidth}
+        \includegraphics[width=7cm]{instrumental-apparatus.png}
+        \caption{
+          \emph{
+            Apparato sperimentale. A partire da sinistra, in senso orario,
+            si trovano: laser(1), filtri polaroid(2, 3), guida circolare(4),
+            prisma(5), sensore(6), Arduino(7). Il servomotore non è riportato.
+          }
         }
-      }
-      \label{fig:instrumental-apparatus}
+        \label{fig:instrumental-apparatus}
+      \end{subfigure}%
+      \hspace{20mm}
+      \begin{subfigure}{.4\textwidth}
+        \includegraphics[width=7cm]{circuit-diagram.png}
+        \caption{
+          \emph{
+            Schema circuitale. I pin $VCC$ e $GND$ del sensore sono collegati
+            all'alimentazione di Arduino. Il pin $SIG$
+            del sensore è collegato ad un input analogico di Arduino, tramite una
+            resistenza da $10k\Omega$.
+          }
+        }
+        \label{fig:circuit-diagram}
+      \end{subfigure}
     \end{figure}
 
   \subsection{Procedura sperimentale}\label{subsec:procedura-sperimentale}
@@ -161,7 +178,7 @@
 \section{Appendice}\label{sec:appendice}
   \subsection{Calcolo incertezza strumentale}\label{subsec:calcolo-incertezza-strumentale}
     Per effettuare le misure d'intensità luminosa, la scheda \emph{Arduino} compara
-    il segnale $V_{temt}$ in uscita dal sensore \emph{TEMT6000} con il potenziale
+    il segnale $V_{sig}$ in uscita dal sensore \emph{TEMT6000} con il potenziale
     $V_{cc}$ dell'alimentatore.
     Dato che il segnale $V_{cc}$ può essere soggetto a fluttuazioni significative % todo precisa che le fluttuazioni avvengono in tempi maggiori a quelli del ciclo di clock di arduino
     (dell'ordine del ~10\%), abbiamo utilizzato il potenziale di riferimento
@@ -177,8 +194,8 @@
     è una costante di proporzionalità. Visto che conosciamo il valore nominale
     di $V_{ref}$, possiamo sfruttare queste informazioni per rimuovere la
     dipendenza da $V_{cc}$. Per ogni misura $I_i$ di intensità, misuriamo sia
-    il potenziale del sensore $V_{temt}$ che il potenziale di riferimento $V_{ref}$.
-    I valori $V_{temt}'$ e $V_{ref}'$ che otterremo saranno dati da (??): %todo add ref
+    il potenziale del sensore $V_{sig}$ che il potenziale di riferimento $V_{ref}$.
+    I valori $V_{sig}'$ e $V_{ref}'$ che otterremo saranno dati da (??): %todo add ref
 
     \vspace{-10mm}
     \begin{multicols}{2}
@@ -187,26 +204,26 @@
       \end{equation}
     \break
       \begin{equation}
-        V_{temt}' = k * \frac {V_{temt}} {V_{cc}}
+        V_{sig}' = k * \frac {V_{sig}} {V_{cc}}
       \end{equation}
     \end{multicols}
 
-    \noindent Dividento la (ref) per la (ref) troviamo il valore vero cercato $V_{temt}$.%todo add ref
+    \noindent Dividento la (ref) per la (ref) troviamo il valore vero cercato $V_{sig}$.%todo add ref
     La formula finale è quindi (riportata con gli errori già calcolati):
 
-    % fixme questa formula è da sistemare. Il fatto è che in realtà v_temt non è
+    % fixme questa formula è da sistemare. Il fatto è che in realtà v_sig non è
     %  espresso in volt, ma in LSB. (Intrinsecamente, dentro di lui compare di
     %  nuovo V_cc, quindi i due si semplificano.
     \begin{equation}
-      V_{temt} = \frac {
+      V_{sig} = \frac {
         V_{ref} (\pm 0.4\%)
       } {
         V'_{ref} (\pm 0.2\%)
-      } V'_{temt} (\pm 0.2\%)
+      } V'_{sig} (\pm 0.2\%)
       \label{eq:misura-intensità}
     \end{equation}
 
-    \noindent In realtà nella nostra implementazione il valore di $V_{temt}$ è
+    \noindent In realtà nella nostra implementazione il valore di $V_{sig}$ è
     moltiplicato per una costante $k = (1024 \cdot 5)^{-1 V^{-1}}$, in modo
     da ottenere un intervallo di valori in uscita compreso in un range tra $0$ e
     $1000$. % fixme ok questo continua ad essere sus. Però almeno non influenza l'errore yee
@@ -265,6 +282,10 @@
                                                                         % singola misura, dovremmo
                                                                         % dividere.
     % btw qui ci sarebbe da dividere per sqrt(2), visto che ho preso 2 punti per ogni angolo.
+    \cite{mazzoldi98}
+  \subsection{References}
+    \bibliographystyle{plain} % We choose the "plain" reference style
+    \bibliography{./docs/report/fresnelReportRefs.bib} % Entries are in the fresnelReportRefs.bib file
 \end{document}
 
 %In this document somasdmeters
