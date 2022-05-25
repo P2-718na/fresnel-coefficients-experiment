@@ -8,10 +8,13 @@
 \usepackage{indentfirst}
 \usepackage{graphicx}
 \usepackage[italian]{babel}
-\usepackage{catchfile}
+\usepackage{catchfile} % used in \getenv command
 \usepackage{multicol}
 \usepackage{amsmath}
 \usepackage{subcaption}
+\usepackage[hang,flushmargin]{footmisc} % remove indent in footnote. % fixme maybe this
+
+\raggedbottom
 
 % FIXME swap to calibri on windows? no license for linux
 \setmainfont{Carlito}
@@ -60,7 +63,7 @@
 \section{Appendice}\label{sec:appendice}
 \input{./docs/report/sections/06-appendice.tex}
 
-\bibliographystyle{plain} % We choose the "plain" reference style
+\bibliographystyle{unsrt} % We choose the "plain" reference style
 \bibliography{./docs/report/fresnelReportRefs.bib} % Entries are in the fresnelReportRefs.bib file
 
 
@@ -69,3 +72,4 @@
 %In this document somasdmeters
 %were added. There is an encoding package,
 %and pagesize and fontsize parameters.
+
