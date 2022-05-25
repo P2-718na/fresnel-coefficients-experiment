@@ -34,258 +34,36 @@
 
 \begin{document}
 
+
 \begin{center}
   \huge Misura dell'angolo di Brewster di un prisma mediante le formule di Fresnel \\ %todo this is just a placeholder title for now
   \large Francesco Platini \getenv{MAT1}. Matteo Bonacini \getenv{MAT2}.\\ % see readme on how to use this
   \today
 \end{center}
 
-% Title spacing
-
 \section{Sommario}\label{sec:abstract}
-  In questo esperimento abbiamo analizzato il comportamento di un raggio di luce
-  che colpisce la superficie di un prisma di materiale ignoto.
-  Abbiamo verificato che l’intensità luminosa riflessa segue l’andamento
-  previsto dalle leggi di Fresnel e abbiamo utilizzato queste leggi per misurare
-  il valore dell'angolo di Brewster per il prisma.
-  I risultati ottenuti sono ?????????? compatibili/incompatibili % todo
+\input{./docs/report/sections/01-sommario.tex}
 
 \section{Introduzione}\label{sec:introduzione}
-  Quando un raggio luminoso colpisce una superficie di separazione tra due
-  dielettrici con indici di rifrazione $n_1$ e $n_2$ diversi, si possono verificare
-  i fenomeni della riflessione e rifrazione della luce.
-  Le equazioni di Fresnel, derivabili direttamente dalle equazioni di Maxwell, % fixme in equazioni ci va maiuscola?
-  descrivono questo comportamento prevedendo quale frazione d'intensità
-  luminosa viene riflessa e quale rifratta, per ciascuna delle due componenti di
-  polarizzazione.
-  Indichiamo con $R_\pi$ e $R_\sigma$ le frazioni d'intensità luminosa riflessa
-  polarizzate, rispettivamente, parallelamente e perpendicolarmente al piano
-  d'incidenza.
-  Si dimostra che valgono:
-
-  \begin{equation}
-    R_\pi = \frac {
-      n_2 \cos{\theta_i} - n_1 \cos{\theta_t}
-    } {
-      n_2” \cos{\theta_i} + n_1 \cos{\theta_t}
-    }\label{eq:fresnel equation 1}
-  \end{equation}
-
-  \begin{equation}
-    R_\sigma = \frac {
-      n_1 \cos{\theta_i} - n_2 \cos{\theta_t}
-    } {
-      n_1” \cos{\theta_i} + n_2 \cos{\theta_t}
-    }\label{eq:fresnel equation 2}
-  \end{equation}
-
-  \noindent dove $n_1$ e $n_2$ sono gli indici di rifrazione dei due mezzi, $\theta_i$ e
-  $\theta_r$ sono gli angoli d'incidenza e rifrazione del raggio luminoso.
-  Una dimostrazione rigorosa di come si ricavino queste equazioni non è oggetto
-  di questo testo, ma si rimanda a Mazzoldi[1] per ulteriori approfondimenti. % todo add reference
-  Variando l’angolo d'incidenza e misurando l’intensità in funzione di tale, si
-  può vedere l’andamento dei due coefficienti.
-  Le formule prevedono che $R_\pi$ si annulli per un certo valore di $\theta_i$,
-  che indicheremo con $\theta_B$.
-  Questo angolo prende il nome di Angolo di Brewster, ed è dato dalla Legge di Brewster:
-
-  \begin{equation}
-    \theta_B = \arctan{
-      \frac {n_2} {n_1}as
-    }\label{eq:Brewster's law}
-  \end{equation}
-
- \noindent  L’angolo di Brewster gode di alcune proprietà utili in diverse applicazioni
-  sperimentali.
-  Per approfondimenti, rimandiamo a [Mazzoldi].
-
-
+\input{./docs/report/sections/02-introduzione}
 
 \section{Apparato sperimentale e svolgimento}\label{sec:apparato-sperimentale-e-svolgimento}
-  \subsection{Apparato sperimentale}\label{subsec:apparato-sperimentale}
-    L’apparato sperimentale, riportato in [fig.1] è formato da un prisma
-    posizionato al centro di una guida circolare graduata. Il prisma è montato
-    ad un servomotore (??? modello) che gli permette di ruotare con una
-    risoluzione angolare di 1.0° +/- 0.5°. (todo: il goniometro ha permesso di
-    misurare l’angolo iniziale da cui far partire l’acquisizione). Un laser è
-    puntato verso il cristallo, e due filtri polarizzatori sono posti in mezzo
-    al fascio. Alla guida rotante è collegato un sensore di intensità luminosa
-    (??? Modello).
-    Il servo ed il sensore sono collegati a (?? mettere davvero tutto il setup
-    oppure solamente una roba) una scheda arduino, che si occupa dell’acquisizione
-    dei dati.
-    (todo inserisci numeri della roba)
-
-    Todo add specifiche di tutta la roba e link to datasheet.
-    ADC arduino, reference voltage e cazzate varie
-    Considerazioni su come l’errore sul sensore sia determinato principalmente da difficoltà nell’allineamento e da fluttuazioni del laser.
-
-    \begin{figure}[h]
-      \centering
-      \caption{Apparato sperimentale e schema circuitale.}
-      \begin{subfigure}{.4\textwidth}
-        \includegraphics[width=7cm]{instrumental-apparatus.png}
-        \caption{
-          \emph{
-            Apparato sperimentale. A partire da sinistra, in senso orario,
-            si trovano: laser(1), filtri polaroid(2, 3), guida circolare(4),
-            prisma(5), sensore(6), Arduino(7). Il servomotore non è riportato.
-          }
-        }
-        \label{fig:instrumental-apparatus}
-      \end{subfigure}%
-      \hspace{20mm}
-      \begin{subfigure}{.4\textwidth}
-        \includegraphics[width=7cm]{circuit-diagram.png}
-        \caption{
-          \emph{
-            Schema circuitale. I pin $VCC$ e $GND$ del sensore sono collegati
-            all'alimentazione di Arduino. Il pin $SIG$
-            del sensore è collegato ad un input analogico di Arduino, tramite una
-            resistenza da $10k\Omega$.
-          }
-        }
-        \label{fig:circuit-diagram}
-      \end{subfigure}
-    \end{figure}
-
-  \subsection{Procedura sperimentale}\label{subsec:procedura-sperimentale}
-    Abbiamo iniziato misurando l’andamento del coefficiente $R_\pi$. Partiamo posizionando il secondo polaroid in modo che la polarizzazione della luce sia parallela al lato del prisma. Il laser che abbiamo utilizzato emetteva luce polarizzata, quindi abbiamo dovuto aggiustare anche il suo angolo rispetto al polaroid. Prima di iniziare le misure, abbiamo regolato l’intensità del laser in modo che il sensore potesse rilevare un range di valori il più ampio possibile. Abbiamo quindi posizionato il sensore direttamente davanti al laser e abbiamo ruotato il primo filtro polaroid, fino a che il sensore non è riuscito a rilevare una variazione significativa di intensità.
-    Per prendere le misure, abbiamo iniziato ruotando il prisma in modo da massimizzare $\theta_i$. Per raccogliere un
-    punto dati abbiamo allineato il sensore con il fascio laser riflesso e ne abbiamo misurato l’intensità. Abbiamo
-    ripetuto questa misura riducendo man mano il valore di $\theta_i$, fino ad arrivare il più vicino possibile a $0\deg$.
-    Il nostro apparato sperimentale ci ha permesso di svolgere misure per ?? < $\theta_i$ < ??.
-    Abbiamo poi ruotato il secondo polaroid di 90° e ripetuta la stessa procedura per misurare $R_\sigma$.
-    In questo modo, abbiamo ottenuto le misure di intensità riflessa $I_\pi$ e $I_\sigma$ [fig ??]. Per ottenere i
-    coefficienti di Fresnel, abbiamo normalizzato i dati ottenuti tenendo conto che:
-    there is no difference between Rp and Rs at normal incidence
-    at glancing angle in the less-dense medium the reflection coefficients are ±1,
-    Come descritto in [Lipson]
-    Da queste misure abbiamo ricavato anche l’angolo di Brewster, osservando per quale valore di $\theta_i$
-    l’intensità $I_\pi$ si annulla.
-
+\input{./docs/report/sections/03-apparato-e-svolgimento.tex}
 
 \section{Risultati e discussione}\label{sec:risultati-e-discussione}
-  \subsection{Verifica delle leggi di Fresnel}\label{subsec:leggi-di-fresnel}
-    \blindtext[2]
-  \subsection{Misura dell'angolo di Brewster}\label{subsec:angolo-di-brewster}
-    \blindtext[2]
+\input{./docs/report/sections/04-risultati.tex}
 
 \section{Conclusioni}\label{sec:conclusioni}
-  \blindtext[2]
+\input{./docs/report/sections/05-conclusioni.tex}
 
 \newpage
 \section{Appendice}\label{sec:appendice}
-  \subsection{Calcolo incertezza strumentale}\label{subsec:calcolo-incertezza-strumentale}
-    Per effettuare le misure d'intensità luminosa, la scheda \emph{Arduino} compara
-    il segnale $V_{sig}$ in uscita dal sensore \emph{TEMT6000} con il potenziale
-    $V_{cc}$ dell'alimentatore.
-    Dato che il segnale $V_{cc}$ può essere soggetto a fluttuazioni significative % todo precisa che le fluttuazioni avvengono in tempi maggiori a quelli del ciclo di clock di arduino
-    (dell'ordine del ~10\%), abbiamo utilizzato il potenziale di riferimento
-    $V_{ref}$ di \emph{Arduino}, mantenuto costante a $1.1V$, come strumento di
-    calibrazione.
-    Sappiamo che per ogni misurazione l'\emph{ADC} svolge un calcolo di questo tipo:
+\input{./docs/report/sections/06-appendice.tex}
 
-    \begin{equation}
-      V_i' = k * \frac {V_i} {V_{cc}}
-    \end{equation}
+\bibliographystyle{plain} % We choose the "plain" reference style
+\bibliography{./docs/report/fresnelReportRefs.bib} % Entries are in the fresnelReportRefs.bib file
 
-    \noindent dove $V_i'$ è il valore di misurato, $V_i$ è il valore vero e $k$
-    è una costante di proporzionalità. Visto che conosciamo il valore nominale
-    di $V_{ref}$, possiamo sfruttare queste informazioni per rimuovere la
-    dipendenza da $V_{cc}$. Per ogni misura $I_i$ di intensità, misuriamo sia
-    il potenziale del sensore $V_{sig}$ che il potenziale di riferimento $V_{ref}$.
-    I valori $V_{sig}'$ e $V_{ref}'$ che otterremo saranno dati da (??): %todo add ref
 
-    \vspace{-10mm}
-    \begin{multicols}{2}
-      \begin{equation}
-        V_{ref}' = k * \frac {V_{ref}} {V_{cc}}
-      \end{equation}
-    \break
-      \begin{equation}
-        V_{sig}' = k * \frac {V_{sig}} {V_{cc}}
-      \end{equation}
-    \end{multicols}
-
-    \noindent Dividento la (ref) per la (ref) troviamo il valore vero cercato $V_{sig}$.%todo add ref
-    La formula finale è quindi (riportata con gli errori già calcolati):
-
-    % fixme questa formula è da sistemare. Il fatto è che in realtà v_sig non è
-    %  espresso in volt, ma in LSB. (Intrinsecamente, dentro di lui compare di
-    %  nuovo V_cc, quindi i due si semplificano.
-    \begin{equation}
-      V_{sig} = \frac {
-        V_{ref} (\pm 0.4\%)
-      } {
-        V'_{ref} (\pm 0.2\%)
-      } V'_{sig} (\pm 0.2\%)
-      \label{eq:misura-intensità}
-    \end{equation}
-
-    \noindent In realtà nella nostra implementazione il valore di $V_{sig}$ è
-    moltiplicato per una costante $k = (1024 \cdot 5)^{-1 V^{-1}}$, in modo
-    da ottenere un intervallo di valori in uscita compreso in un range tra $0$ e
-    $1000$. % fixme ok questo continua ad essere sus. Però almeno non influenza l'errore yee
-
-    In questa formula compaiono quindi due diverse sorgenti di errore:
-    l'\emph{ADC} di \emph{ATmega328P} e il potenziale di riferimento $V_{ref}$
-    di \emph{Arduino Uno}.
-    % Questo magari va messo in una nota?
-    %abbiamo considerato trascurabile l’incertezza strumentale del sensore, dato
-    %che non è riportata nel \emph{datasheet} e %todo add reference to datasheet
-    %qualsiasi suo effetto sarà incluso
-    %nelle incertezze casuali stimate in (vedi sezione 6.2). %todo add reference to section
-    Abbiamo ottenuto l’incertezza dell’\emph{ADC} direttamente dal
-    \emph{datasheet} di \emph{ATmega328P} (sezione 23.1 ADC  Features): % todo add reference
-    il produttore indica un'incertezza massima assoluta di $\pm 2LSB \approx 0.2\%$. % todo add note for LSB
-    Questo valore tiene conto di tutte le possibili fonti di errore interne
-    all’\emph{ADC} ed è da considerarsi come limite superiore.
-    Per quanto riguarda l'incertezza del potenziale di riferimento, abbiamo
-    utilizzato il lavoro di Main[ref], dove è stato misurato un errore %todo add reference
-    massimo dello $0.4\%$.
-    Propagando linearmente le incertezze nella formula (??) si ottiene un incertezza
-    strumentale dello $0.8\%$ nelle misure di intensità.
-
-  \subsection{Calcolo incertezza casuale}\label{subsec:calcolo-incertezza-casuale}
-    A causa di limitazioni strumentali, non ci è stato possibile ottenere un campione
-    numeroso di misure per ogni angolo. Possiamo ottenere ugualmente
-    una stima delle incertezze casuali facendo le assunzioni: % fixme no fare pls
-    - Le misure di intensità sono distribuite in modo normale attorno a un valore
-      medio $\mu_i$, proprio di ogni angolo.
-    - Tra un angolo e un altro la distribuzione differisce solo per la media e non per la
-      deviazione standard $\sigma$.
-    Queste sono giustificate dal fatto che il modo in cui vengono raccolti i dati
-    non è dipendente dall'angolo a cui si trova il sensore.
-    Di conseguenza, possiamo ottenere una stima di $\sigma$ tenendo in considerazione
-    gli scarti quadratici dei campioni di ogni angolo, unitamente.
-    Abbiamo usato la formula:
-
-    \begin{equation}
-      \sigma = \sqrt{
-        \frac {
-          \sum_{i = \theta_{min}}^{\theta_{max}} \left(
-            \sum_{j = 0}^{N_i} (x_{ij} -\mu_i)^2
-          \right)
-        } {
-          \nu
-        }
-      }
-    \end{equation}
-
-    \noindent dove $N_i$ è il numero di dati nel campione $\vec{x}_i$.
-    $\nu$ è il numero di gradi di libertà dei dati, calcolato come
-    $(n^\circ \text{ dati raccolti}) - (n^\circ \text{ parametri calcolati dai dati})$.
-    Il risultato ottenuto è $\sigma = 9.46 (\text{unità arbitrarie})$.  % noi interessano le fluttuazioni
-                                                                        % statistiche, quindi questa roba non viene
-                                                                        % divisa per sqrt(n). Se ci interessasse la
-                                                                        % singola misura, dovremmo
-                                                                        % dividere.
-    % btw qui ci sarebbe da dividere per sqrt(2), visto che ho preso 2 punti per ogni angolo.
-    \cite{mazzoldi98}
-  \subsection{References}
-    \bibliographystyle{plain} % We choose the "plain" reference style
-    \bibliography{./docs/report/fresnelReportRefs.bib} % Entries are in the fresnelReportRefs.bib file
 \end{document}
 
 %In this document somasdmeters
