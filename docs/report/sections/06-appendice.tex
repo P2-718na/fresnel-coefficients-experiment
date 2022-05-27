@@ -1,41 +1,42 @@
 \subsection{Calcolo incertezza strumentale}\label{subsec:calcolo-incertezza-strumentale}
-  Per effettuare le misure d'intensità luminosa, la scheda \emph{Arduino} compara
+  Per effettuare le misure d'intensità luminosa, Arduino compara
   il segnale $V_{sig}$ in uscita dal sensore \emph{TEMT6000} con il potenziale
   $V_{cc}$ dell'alimentatore.
-  Dato che il segnale $V_{cc}$ può essere soggetto a fluttuazioni significative % todo precisa che le fluttuazioni avvengono in tempi maggiori a quelli del ciclo di clock di arduino
-  (dell'ordine del ~10\%), abbiamo utilizzato il potenziale di riferimento
+  Dato che il segnale $V_{cc}$ può essere soggetto a fluttuazioni sistematiche significative\footnote{Basti pensare a un alimentatore che si riscalda durante la presa dati,
+  causando un progressivo abbassamento dei valori misurati}
+  (dell'ordine del ~10\%)\footnote{Arduino può essere alimentato con potenziale compreso tra $\sim 4.5V$ e $\sim 5.5V$.}, abbiamo utilizzato il potenziale di riferimento
   $V_{ref}$ di \emph{Arduino}, mantenuto costante a $1.1V$, come strumento di
   calibrazione.
-  Sappiamo che per ogni misurazione l'\emph{ADC} svolge un calcolo di questo tipo:
-
+  Per ogni misurazione l'\emph{ADC} svolge un calcolo di questo tipo:
+  %
   \begin{equation}
     V_i' = k * \frac {V_i} {V_{cc}}
+    \label{eq:misura-adc}
   \end{equation}
-
+  %
   \noindent dove $V_i'$ è il valore di misurato, $V_i$ è il valore vero e $k$
-  è una costante di proporzionalità. Visto che conosciamo il valore nominale
-  di $V_{ref}$, possiamo sfruttare queste informazioni per rimuovere la
-  dipendenza da $V_{cc}$. Per ogni misura $I_i$ di intensità, misuriamo sia
-  il potenziale del sensore $V_{sig}$ che il potenziale di riferimento $V_{ref}$.
-  I valori $V_{sig}'$ e $V_{ref}'$ che otterremo saranno dati da (??): %todo add ref
-
+  è una costante di proporzionalità. Conoscendo il valore nominale
+  di $V_{ref}$\footnote{Trascuriamo il valore iniziale di \emph{offset}, visto che
+  a noi importa solo della precisione della misura e non della sua accuratezza.}, possiamo rimuovere la
+  dipendenza da $V_{cc}$. Per ogni misura $I_i$ di intensità, andiamo a misurare sia $V_{sig}$ che $V_{ref}$.
+  I valori $V_{sig}'$ e $V_{ref}'$ che otteniamo sono dati dalla \eqref{eq:misura-adc}:
+  %
   \vspace{-10mm}
   \begin{multicols}{2}
     \begin{equation}
       V_{ref}' = k * \frac {V_{ref}} {V_{cc}}
+      \label{eq:vref-misura}
     \end{equation}
   \break
     \begin{equation}
       V_{sig}' = k * \frac {V_{sig}} {V_{cc}}
+      \label{eq:vsig-misura}
     \end{equation}
   \end{multicols}
-
-  \noindent Dividento la (ref) per la (ref) troviamo il valore vero cercato $V_{sig}$.%todo add ref
+  %
+  \noindent Dividendo la \eqref{eq:vsig-misura} per la \eqref{eq:vref-misura} troviamo il valore vero cercato $V_{sig}$.
   La formula finale è quindi (riportata con gli errori già calcolati):
-
-  % fixme questa formula è da sistemare. Il fatto è che in realtà v_sig non è
-  %  espresso in volt, ma in LSB. (Intrinsecamente, dentro di lui compare di
-  %  nuovo V_cc, quindi i due si semplificano.
+  %
   \begin{equation}
     V_{sig} = \frac {
       V_{ref} (\pm 0.4\%)
@@ -44,30 +45,25 @@
     } V'_{sig} (\pm 0.2\%)
     \label{eq:misura-intensità}
   \end{equation}
-
-  \noindent In realtà nella nostra implementazione il valore di $V_{sig}$ è
-  moltiplicato per una costante $k = (1024 \cdot 5)^{-1 V^{-1}}$, in modo
-  da ottenere un intervallo di valori in uscita compreso in un range tra $0$ e
-  $1000$. % fixme ok questo continua ad essere sus. Però almeno non influenza l'errore yee
-
-  In questa formula compaiono quindi due diverse sorgenti di errore:
+  %
+  In questa formula compaiono due diverse sorgenti di errore:
   l'\emph{ADC} di \emph{ATmega328P} e il potenziale di riferimento $V_{ref}$
   di \emph{Arduino Uno}.
   % Questo magari va messo in una nota?
   %abbiamo considerato trascurabile l’incertezza strumentale del sensore, dato
-  %che non è riportata nel \emph{datasheet} e %todo add reference to datasheet
+  %che non è riportata nel \emph{datasheet} e
   %qualsiasi suo effetto sarà incluso
-  %nelle incertezze casuali stimate in (vedi sezione 6.2). %todo add reference to section
+  %nelle incertezze casuali stimate in (vedi sezione 6.2).
   Abbiamo ottenuto l’incertezza dell’\emph{ADC} direttamente dal
-  \emph{datasheet} di \emph{ATmega328P} (sezione 23.1 ADC  Features): % todo add reference
+  \emph{datasheet}\cite{atmega} di \emph{ATmega328P} (Sez.23.1):
   il produttore indica un'incertezza massima assoluta di $\pm 2LSB \approx 0.2\%$. % todo add note for LSB
   Questo valore tiene conto di tutte le possibili fonti di errore interne
   all’\emph{ADC} ed è da considerarsi come limite superiore.
   Per quanto riguarda l'incertezza del potenziale di riferimento, abbiamo
-  utilizzato il lavoro di Main[ref], dove è stato misurato un errore %todo add reference
+  utilizzato il lavoro di Main\cite{main}, dove è stato misurato un errore
   massimo dello $0.4\%$.
-  Propagando linearmente le incertezze nella formula (??) si ottiene un incertezza
-  strumentale dello $0.8\%$ nelle misure di intensità.
+  Propagando linearmente le incertezze nella formula \eqref{eq:misura-intensità} si ottiene un incertezza
+  strumentale dello $0.8\%$.
 
 \subsection{Calcolo incertezza casuale}\label{subsec:calcolo-incertezza-casuale}
   % Questa incertezza è data dall'allineamento del sensore.
@@ -80,10 +76,10 @@
     deviazione standard $\sigma$.
   Queste sono giustificate dal fatto che il modo in cui vengono raccolti i dati
   non è dipendente dall'angolo a cui si trova il sensore.
-  Di conseguenza, possiamo ottenere una stima di $\sigma$ tenendo in considerazione
-  gli scarti quadratici dei campioni di ogni angolo, unitamente.
+  Abbiamo quindi stimato $\sigma$ tenendo in considerazione degli scarti quadratici
+  dei campioni di ogni angolo.
   Abbiamo usato la formula:
-
+  %
   \begin{equation}
     \sigma = \sqrt{
       \frac {
@@ -95,11 +91,12 @@
       }
     }
   \end{equation}
-
+  %
   \noindent dove $N_i$ è il numero di dati nel campione $\vec{x}_i$.
-  $\nu$ è il numero di gradi di libertà dei dati, calcolato come
-  $(n^\circ \text{ dati raccolti}) - (n^\circ \text{ parametri calcolati dai dati})$.
-  Il risultato ottenuto è $\sigma = 9.46 (\text{unità arbitrarie})$.  % noi interessano le fluttuazioni
+  $\nu$ è il numero di gradi di libertà dei dati. La miglior stima per l'incertezza
+  sull'intensità luminosa, infine, è data dalla variazione standard della media $\sigma^*$.
+  Il risultato ottenuto è $\sigma^* = 6.69 (\text{unità arbitrarie})$.
+                                                                      % noi interessano le fluttuazioni
                                                                       % statistiche, quindi questa roba non viene
                                                                       % divisa per sqrt(n). Se ci interessasse la
                                                                       % singola misura, dovremmo
