@@ -22,6 +22,7 @@ For a quick reference, look at these images [_Mazzoldi_, 1998] :
 - [run3-adjusted.csv](pi/run3-adjusted.csv): Adjusted third run, accounting for errors on the y-axis and initial
   angle offset (`7°`). Part of this data (tail, from `31°` included) is taken from `run3.csv`. The
   rest is taken from `run3-manual.csv`, to account for (most likely) corrupted data.
+- [run3-parabola.csv](pi/run3-parabola.csv): Data used for parabolic fit of Brewster's angle. Taken from `run3-adjusted.csv`
 
 ### sigma
 - [sim.csv](sigma/sim.csv): simulated data with parameters: `n1 = 1`, `n2 = 1.509`, `I_0 = 950`.
