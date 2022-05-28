@@ -50,6 +50,6 @@ for dataset, func, constraints in zip(datasets, funcs, constraints):
       x, y, dx, dy = line.split()
       xs.append(float(x))
       ys.append(float(y))
-      delta_xs.append(float(dx))
+      delta_xs.append(0) # float(dx)) we don't want to recalculate this.
       delta_ys.append(float(dy))
   print(dataset, calc_chisquare(xs, ys, delta_xs, delta_ys, func) / (len(xs) - constraints))
