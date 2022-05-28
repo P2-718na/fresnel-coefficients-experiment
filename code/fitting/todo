@@ -1,0 +1,1 @@
+Fix every (relative) path by making it absolute. repo folder must be root for everything.
