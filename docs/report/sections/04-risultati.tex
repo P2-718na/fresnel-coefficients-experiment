@@ -1,14 +1,13 @@
-  I risultati ottenuti sono riassunti in Fig.\ref{fig:dati-raw}.
+\subsection{Andamento dei coefficienti di Fresnel}\label{subsec:analisi-coefficienti}
+  I dati raccolti sono riassunti in Fig.\ref{fig:dati-raw}, espressi in unità arbitrarie (proporzionale
+  al potenziale in ingresso rilevato da Arduino).
   I parametri risultanti dal \emph{fit} sono riassunti in Tab.\ref{tab:risultati-fit}.
   I fit sono stati svolti usando l'algoritmo \emph{Gradient}\footnote{https://reference.wolfram.com/language/ref/NonlinearModelFit.html} di \emph{Woflram Mathematica}\footnote{https://www.wolfram.com/mathematica/}, e le rispettive incertezze %todo add ref
   sono date dagli errori standard dei parametri ottenuti dal \emph{fit}.                                          %todo add ref
   Qualitativamente, l'andamento è concorde con quanto atteso. In Fig.\ref{fig:raw-pi}
-  si vede chiaramente che la funzione raggiunge lo zero per un certo angolo $\theta$,
+  si vede chiaramente che la funzione raggiunge lo zero per un certo valore di $\theta$,
   mentre in Fig.\ref{fig:raw-sigma} la funzione cresce monotonamente.
-  %\footnote{In realtà nella nostra implementazione il valore di $V_{sig}$ è
-  %  moltiplicato per una costante $k = (1024 \cdot 5)^{-1 V^{-1}}$, in modo
-  %  da ottenere un intervallo di valori in uscita compreso in un range tra $0$ e
-  %  $1000$.}
+  %
   \begin{figure}[H]
     \centering
     \caption{Dati raccolti}
@@ -59,31 +58,34 @@
     \end{tabular}\label{tab:risultati-fit}
   \end{table}
   %
-  Abbiamo misurato valori nell'intervallo di ${\theta_{min} \leq \theta \leq \theta_{max}}$,
+  Abbiamo misurato valori in un intervallo ${\theta_{min} \leq \theta \leq \theta_{max}}$,
   con ${\theta_{min} = 7^\circ \pm 0.5^\circ}$ e $\theta_{max} = 83^\circ \pm 0.5^\circ$.
-  Le dimensioni del lato del prisma utilizzato ($15mm$ di lunghezza) non permettevano
+  Le dimensioni del lato del prisma utilizzato ($15mm$) non permettevano
   di andare oltre $\theta_{max}$ senza che il fascio venisse alterato, mentre il
   limite di $\theta_{min}$ ci è stato imposto dalla geometria del sensore.
-  Abbiamo scelto un passo angolare di $2^\circ$ per permetterci di prendere un
+  Abbiamo usato un passo angolare di $2^\circ$ per permetterci di prendere un
   numero adeguato di misure, senza allungare eccessivamente la durata dell'esperimento.
   Il campione di dati riportato in Fig.\ref{fig:dati-raw} è quello che segue meglio
   l'andamento previsto.
-  Le incertezze associate ad ogni punto sono state ottenute come somma somma di
-  incertezze sistematiche dovute all'attrezzatura e di incertezze casuali, come
+  Le incertezze associate ad ogni punto sono state ottenute come somma di
+  (incertezze sistematiche dovute all'attrezzatura) $+$ ()incertezze casuali), calcolate come
   descritto in Sez.\ref{subsec:calcolo-incertezza-strumentale} e Sez.\ref{subsec:calcolo-incertezza-casuale}.
-  Normalizzando i dati, si ottengono i risultati mostrati in Fig.\ref{fig:normalised-coefficients} %todo capire se per normalizzare basta dividere per I_0, o se conviene imporre anche che i due n2 siano uguali.
-                                                                    %  ceh in realtà ci sta prenderne la media per soddisfare a condizione di Lipson.
+  Normalizzando i dati (dividendo i valori misurati per il parametro $I_0$ del \emph{fit}), si ottengono i risultati mostrati in Fig.\ref{fig:normalised-coefficients}
+  %todo capire se per normalizzare basta dividere per I_0, o se conviene imporre anche che i due n2 siano uguali.
+  %  ceh in realtà ci sta prenderne la media per soddisfare a condizione di Lipson.
   assieme all'andamento previsto\footnote{Calcolato supponendo di avere un valore di $n_2 = 1.519$, %todo expand me
   caratteristico per il vetro K9 alla lunghezza della luce rossa.}.
   %
   \begin{figure}[H]
     \centering
-    \caption{Smegma}
+    \caption{Dati normalizzati}
     \begin{subfigure}{.4\textwidth}
       \includegraphics[width=7cm]{./graphs/normalised-coefficients.png}
       \caption{
         \emph{
-          spregna
+          Andamento del coefficiente $R_\pi$, ottenuto normalizzando i dati
+          di Fig.\ref{fig:raw-pi}
+          % todo
         }
       }
       \label{fig:normalised-coefficients}
@@ -93,7 +95,8 @@
       \includegraphics[width=7cm]{./graphs/amplitude-coefficients.png}
       \caption{
         \emph{
-          bora
+          Andamento del coefficiente $R_\sigma$, ottenuto normalizzando i dati
+          di Fig.\ref{fig:raw-sigma}
         }
       }
       \label{fig:coefficienti-ampiezza}
@@ -101,7 +104,7 @@
   \end{figure}
 %
 \subsection{Misura dell'angolo di Brewster}\label{subsec:angolo-di-brewster}
-  Inserendo nell'equazione \eqref{legge-brewster} $n_1 = 1.000$ e $n_2 = 1.492 \pm 0.008$
+  Inserendo nell'equazione \eqref{eq:legge-brewster} i valori $n_1 = 1.000$ e $n_2 = 1.492 \pm 0.008$
   otteniamo un valore per l'angolo di Brewster $\theta_B = \arctan{(n_2 / n_1)} = \arctan{(1.492)} = 56.2^\circ \pm 0.1^\circ$. Il valore di $n_2$ utilizzato è la media
   dei due coefficienti in Tab.\ref{tab:risultati-fit} e l'incertezza associata è data dalla formula generale per la
   propagazione degli errori (come descritto in Taylor\cite{taylor99}).
@@ -132,7 +135,6 @@
       \bottomrule
     \end{tabular}\label{tab:fit-brewster}
   \end{table}
-  % TODO
 \endinput
 
 
