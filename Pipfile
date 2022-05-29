@@ -1,5 +1,6 @@
 [scripts]
 "build:report" = "sh ./scripts/build:report.sh"
+"build:graphs" = "sh ./scripts/build:graphs.sh"
 
 [packages]
 jupyter = "*"
