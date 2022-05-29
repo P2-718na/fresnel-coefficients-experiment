@@ -10,8 +10,7 @@
   %
   \begin{figure}[H]
     \centering
-    \caption{Dati raccolti}
-    \begin{subfigure}[t]{.4\textwidth}
+    \begin{subfigure}[t]{.42\textwidth}
       \includegraphics[width=7cm]{./graphs/raw-pi.png}
       \caption{
         \emph{
@@ -23,9 +22,9 @@
       \label{fig:raw-pi}
     \end{subfigure}
     %
-    \hspace{20mm}
+    \hspace{5mm}
     %
-    \begin{subfigure}[t]{.4\textwidth}
+    \begin{subfigure}[t]{.42\textwidth}
       \includegraphics[width=7cm]{./graphs/raw-sigma.png}
       \caption{
         \emph{
@@ -35,7 +34,8 @@
       }
       \label{fig:raw-sigma}
     \end{subfigure}
-    \label{fig:dati-raw}
+    \caption{\emph{Dati raccolti.}
+    \label{fig:dati-raw}}
   \end{figure}
   %
   \begin{table}[ht]
@@ -78,9 +78,8 @@
   %
   \begin{figure}[H]
     \centering
-    \caption{Dati normalizzati}
-    \begin{subfigure}{.4\textwidth}
-      \includegraphics[width=7cm]{./graphs/normalised-coefficients.png}
+    \begin{subfigure}[t]{.4\textwidth}
+      \includegraphics[width=7cm]{./graphs/r-pi-coefficient.png}
       \caption{
         \emph{
           Andamento del coefficiente $R_\pi$, ottenuto normalizzando i dati
@@ -88,11 +87,12 @@
           % todo
         }
       }
+      \caption{\emph{Andamento dei coefficienti $R_\pi$ e $R_\sigma$.}}
       \label{fig:normalised-coefficients}
     \end{subfigure}%
     \hspace{20mm}
-    \begin{subfigure}{.4\textwidth}
-      \includegraphics[width=7cm]{./graphs/amplitude-coefficients.png}
+    \begin{subfigure}[t]{.4\textwidth}
+      \includegraphics[width=7cm]{./graphs/r-sigma-coefficient.png}
       \caption{
         \emph{
           Andamento del coefficiente $R_\sigma$, ottenuto normalizzando i dati
@@ -117,8 +117,8 @@
   %
   \begin{figure}[h]
     \centering
-    \caption{Fit parabolico dell'angolo di brewster.}
     \includegraphics[width=7cm]{./graphs/brewsters-angle.png}
+    \caption{\emph{Fit parabolico dell'angolo di brewster.}}
     \label{fig:brewsters-angle}
   \end{figure}
   \begin{table}[ht]
