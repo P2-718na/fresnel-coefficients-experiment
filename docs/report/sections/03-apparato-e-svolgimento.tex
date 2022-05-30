@@ -9,15 +9,15 @@
   Il circuito che collega \emph{Arduino} e sensore è schematizzato in Fig.\ref{fig:diagramma-circuito}.
   %
   Il servomotore permette di ruotare il prisma con una risoluzione angolare di ${1.0^\circ \pm 0.5^\circ}$.
-  L'apparato Arduino-sensore fornisce una misura dell'intensità luminosa
+  L'apparato Arduino-sensore fornisce una misura dell'intensità luminosa presente
   sulla superficie del sensore nell'intervallo $I = [0, 1000]$ unità arbitrarie,
   con un'incertezza sistematica massima di $0.8\%$ (si rimanda a Sez.\ref{subsec:calcolo-incertezza-strumentale}
   per la dimostrazione di come è stato ottenuto questo valore).
 %
   \begin{figure}[h]
     \centering
-    \begin{subfigure}{.4\textwidth}
-      \includegraphics[width=7cm]{instrumental-apparatus.png}
+    \begin{subfigure}{.47\textwidth}
+      \includegraphics[width=8cm]{instrumental-apparatus.png}
       \caption{
         \emph{
           Apparato sperimentale. A partire da sinistra, in senso orario,
@@ -27,9 +27,9 @@
       }
       \label{fig:apparato-strumentale}
     \end{subfigure}%
-    \hspace{20mm}
-    \begin{subfigure}{.4\textwidth}
-      \includegraphics[width=7cm]{circuit-diagram.png}
+    \hspace{5mm}
+    \begin{subfigure}{.47\textwidth}
+      \includegraphics[width=8cm]{circuit-diagram.png}
       \caption{
         \emph{
           Schema circuitale. I pin $\text{VCC}$ e $\text{GND}$ del sensore sono collegati
@@ -64,7 +64,7 @@
       Ruotando il polaroid(2), abbiamo ridotto l’intensità del fascio laser
       incidente sul prisma, fino a che Arduino non ha potuto rilevare una
       variazione significativa del segnale del sensore.
-      Questo ci ha permesso di sfruttare l'intero range di operatività del convertitore analogico-digitale di Arduino.
+      Questo ci ha permesso di sfruttare l'intero intervallo di operatività del convertitore analogico-digitale di Arduino.
     \item%
       Abbiamo acquisito l'intensità luminosa rilevata dal sensore in questo punto,
       poi abbiamo ruotato il prisma in senso orario e abbiamo
@@ -79,7 +79,7 @@
   %
   I dati che abbiamo raccolto in questo modo non \emph{non} sono
   i coefficienti $R_\pi$ e $R_\sigma$, ma differiscono da essi per una costante
-  moltiplicativa; questa verrà determinata tramite un \emph{fit}\footnote{Avremmo potuto misurare
+  moltiplicativa $I_0$; questa verrà determinata tramite un \emph{fit}\footnote{Avremmo potuto misurare
   questo valore direttamente, ma così facendo avremmo dovuto
   abbassare ulteriormente l'intensità del fascio laser e non avremmo più potuto
   sfruttare l'intero intervallo di operatività di Arduino.}, come descritto in Sez.$\ref{subsec:analisi-coefficienti}$.
