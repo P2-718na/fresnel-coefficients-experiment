@@ -38,6 +38,9 @@
   \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
   \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
 
+% Roman numerals
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
 \begin{document}
 
 
