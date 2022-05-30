@@ -1,16 +1,17 @@
 \subsection{Andamento dei coefficienti di Fresnel}\label{subsec:analisi-coefficienti}
-  I dati raccolti sono riassunti in Fig.\ref{fig:dati-raw}, espressi in unità arbitrarie (proporzionale
-  al potenziale in ingresso rilevato da Arduino).
-  I parametri risultanti dal \emph{fit} sono riassunti in Tab.\ref{tab:risultati-fit}.
-  I fit sono stati svolti usando l'algoritmo \emph{Gradient}\footnote{https://reference.wolfram.com/language/ref/NonlinearModelFit.html} di \emph{Woflram Mathematica}\footnote{https://www.wolfram.com/mathematica/}, e le rispettive incertezze %todo add ref
-  sono date dagli errori standard dei parametri ottenuti dal \emph{fit}.                                          %todo add ref
+  I dati raccolti sono riassunti in Fig.\ref{fig:dati-raw}.
+  Le miglior stime dei parametri, risultato dei \emph{fit}, sono riassunte in Tab.\ref{tab:risultati-fit}
+  assieme agli errori standard associati.
+  I \emph{fit} sono stati svolti usando l'algoritmo \emph{Gradient}\footnote{https://reference.wolfram.com/language/ref/NonlinearModelFit.html} di \emph{Woflram Mathematica}\footnote{https://www.wolfram.com/mathematica/}.
   Qualitativamente, l'andamento è concorde con quanto atteso. In Fig.\ref{fig:raw-pi}
   si vede chiaramente che la funzione raggiunge lo zero per un certo valore di $\theta$,
   mentre in Fig.\ref{fig:raw-sigma} la funzione cresce monotonamente.
+  I residui sono contenuti quasi completamente entro le barre di errore.
+  % todo add barre di errore nel grafico dei residui
   %
   \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{.42\textwidth}
+    \begin{subfigure}[t]{.47\textwidth}
       \includegraphics[width=7cm]{./graphs/raw-pi.png}
       \caption{
         \emph{
@@ -24,7 +25,7 @@
     %
     \hspace{5mm}
     %
-    \begin{subfigure}[t]{.42\textwidth}
+    \begin{subfigure}[t]{.47\textwidth}
       \includegraphics[width=7cm]{./graphs/raw-sigma.png}
       \caption{
         \emph{
@@ -38,24 +39,25 @@
     \label{fig:dati-raw}}
   \end{figure}
   %
-  \begin{table}[ht]
+  \begin{table}[H]
     \centering
-    \caption{
-      Risultati dei \emph{fit} dei dati raccolti. Le intensità sono espresse in unità arbitrare, gli indici
-      di rifrazione e i chi quadro ridotti sono numeri puri.
-    }
     \begin{tabular}[t]{cc}
       \toprule
       Parametro &Valore ottenuto\\
       \midrule
-      $I_{0\pi}$ &$2550 \pm 10 (u. a.)$ \\
-      $I_{0\sigma}$ &$1350 \pm 20 (u. a.)$ \\
+      $I_{0\pi}$ &$2550 \pm 10 (un. arb.)$ \\
+      $I_{0\sigma}$ &$1350 \pm 20 (un. arb.)$ \\
       $n_{2\pi}$ &$1.493 \pm 0.006$    \\
       $n_{2\sigma}$ &$1.490 \pm 0.010$    \\
       $\tilde \chi^2_\pi$ &$0.71$ \\
       $\tilde \chi^2_\sigma$ &$1.17$ \\
       \bottomrule
-    \end{tabular}\label{tab:risultati-fit}
+      \end{tabular}
+    \caption{
+      Risultati dei \emph{fit} dei dati raccolti. Le intensità sono espresse in unità arbitrare, gli indici
+      di rifrazione e i chi quadro ridotti sono numeri puri.
+    }
+    \label{tab:risultati-fit}
   \end{table}
   %
   Abbiamo misurato valori in un intervallo ${\theta_{min} \leq \theta \leq \theta_{max}}$,
@@ -67,31 +69,32 @@
   numero adeguato di misure, senza allungare eccessivamente la durata dell'esperimento.
   Il campione di dati riportato in Fig.\ref{fig:dati-raw} è quello che segue meglio
   l'andamento previsto.
-  Le incertezze associate ad ogni punto sono state ottenute come somma di
-  (incertezze sistematiche dovute all'attrezzatura) $+$ ()incertezze casuali), calcolate come
+  Le incertezze associate ad ogni punto sono state ottenute come somma di:
+  (incertezze sistematiche dovute all'attrezzatura) $+$ (incertezze casuali), calcolate come
   descritto in Sez.\ref{subsec:calcolo-incertezza-strumentale} e Sez.\ref{subsec:calcolo-incertezza-casuale}.
   Normalizzando i dati (dividendo i valori misurati per il parametro $I_0$ del \emph{fit}), si ottengono i risultati mostrati in Fig.\ref{fig:normalised-coefficients}
-  %todo capire se per normalizzare basta dividere per I_0, o se conviene imporre anche che i due n2 siano uguali.
-  %  ceh in realtà ci sta prenderne la media per soddisfare a condizione di Lipson.
-  assieme all'andamento previsto\footnote{Calcolato supponendo di avere un valore di $n_2 = 1.519$, %todo expand me
-  caratteristico per il vetro K9 alla lunghezza della luce rossa.}.
+  % per normalizzare basta dividere per I_0, o conviene imporre anche che i due n2 siano uguali?
+  % ceh in realtà ci sta prenderne la media per soddisfare a condizione descritta in Lipson.
+  % noi non l'abbiamo fatto.
+  assieme all'andamento previsto\footnote{Calcolato supponendo di avere un valore di $1.50 \leq n_2 \leq 1.53$,
+  caratteristico per il vetro K9 alla lunghezza della luce rossa.}. % fixme dovremmo specificare che abbiamo anche aggiunto un range I_0 del 10%?
   %
   \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{.4\textwidth}
+    \begin{subfigure}[t]{.47\textwidth}
       \includegraphics[width=7cm]{./graphs/r-pi-coefficient.png}
       \caption{
         \emph{
           Andamento del coefficiente $R_\pi$, ottenuto normalizzando i dati
           di Fig.\ref{fig:raw-pi}
-          % todo
         }
       }
-      \caption{\emph{Andamento dei coefficienti $R_\pi$ e $R_\sigma$.}}
       \label{fig:normalised-coefficients}
-    \end{subfigure}%
-    \hspace{20mm}
-    \begin{subfigure}[t]{.4\textwidth}
+    \end{subfigure}
+    %
+    \hspace{5mm}
+    %
+    \begin{subfigure}[t]{.47\textwidth}
       \includegraphics[width=7cm]{./graphs/r-sigma-coefficient.png}
       \caption{
         \emph{
@@ -101,6 +104,7 @@
       }
       \label{fig:coefficienti-ampiezza}
     \end{subfigure}
+    \caption{\emph{Andamento dei coefficienti $R_\pi$ e $R_\sigma$.}}
   \end{figure}
 %
 \subsection{Misura dell'angolo di Brewster}\label{subsec:angolo-di-brewster}
@@ -109,9 +113,8 @@
   dei due coefficienti in Tab.\ref{tab:risultati-fit} e l'incertezza associata è data dalla formula generale per la
   propagazione degli errori (come descritto in Taylor\cite{taylor99}).
   Possiamo ottenere un'altra stima per $\theta_B$ con un \emph{fit} parabolico nella stretta regione
-  dove $R_\pi$ si annulla; il vertice della parabola è la miglior stima per $\theta_B$.
-  La funzione uitlizzata per il \emph{fit} è $y = a(x - \theta_B)^2$, dove il parametro $\theta_B$ è la
-  miglior stima per il valore dell'angolo di Brewster.
+  dove $R_\pi$ si annulla e prendere l'ascissa del vertice della parabola come miglior stima per $\theta_B$.
+  La funzione utilizzata per il \emph{fit} è quella di una parabola traslata: $y = a(x - x_0)^2$.
   Il risultato ottenuto è mostrato in figura \ref{fig:brewsters-angle}. I valori numerici
   dei parametri risultanti dal fit sono riportati in Tab.\ref{tab:fit-brewster}
   %
@@ -123,17 +126,18 @@
   \end{figure}
   \begin{table}[ht]
     \centering
-    \caption{
-      Risultati numerici del \emph{fit} parabolico per determinare l'angolo di Brewster.
-    }
     \begin{tabular}[t]{cc}
       \toprule
       Parametro &Valore ottenuto\\
       \midrule
-      $a$ &$0.29 \pm 0.02 (u.a.)$ \\
+      $a$ &$0.29 \pm 0.02 (un. arb.)$ \\
       $\theta_B$ &$56.8^\circ \pm 0.2^\circ$ \\
       \bottomrule
-    \end{tabular}\label{tab:fit-brewster}
+      \end{tabular}
+    \caption{
+      Risultati numerici del \emph{fit} parabolico per determinare l'angolo di Brewster.
+    }
+    \label{tab:fit-brewster}
   \end{table}
 \endinput
 

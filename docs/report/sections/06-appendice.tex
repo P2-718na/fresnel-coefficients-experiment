@@ -3,7 +3,7 @@
   il segnale $V_{sig}$ in uscita dal sensore \emph{TEMT6000} con il potenziale
   $V_{cc}$ dell'alimentatore.
   Dato che il segnale $V_{cc}$ può essere soggetto a fluttuazioni sistematiche significative\footnote{Basti pensare a un alimentatore che si riscalda durante la presa dati,
-  causando un progressivo abbassamento dei valori misurati}
+  causando un progressivo abbassamento di $V_{cc}$.}
   (dell'ordine del ~10\%)\footnote{Arduino può essere alimentato con potenziale compreso tra $\sim 4.5V$ e $\sim 5.5V$.}, abbiamo utilizzato il potenziale di riferimento
   $V_{ref}$ di \emph{Arduino}, mantenuto costante a $1.1V$, come strumento di
   calibrazione.
@@ -48,7 +48,7 @@
   %
   In questa formula compaiono due diverse sorgenti di errore:
   l'\emph{ADC} di \emph{ATmega328P} e il potenziale di riferimento $V_{ref}$
-  di \emph{Arduino Uno}.
+  di Arduino.
   % Questo magari va messo in una nota?
   %abbiamo considerato trascurabile l’incertezza strumentale del sensore, dato
   %che non è riportata nel \emph{datasheet} e
@@ -56,7 +56,7 @@
   %nelle incertezze casuali stimate in (vedi sezione 6.2).
   Abbiamo ottenuto l’incertezza dell’\emph{ADC} direttamente dal
   \emph{datasheet}\cite{atmega} di \emph{ATmega328P} (Sez.23.1):
-  il produttore indica un'incertezza massima assoluta di $\pm 2LSB \approx 0.2\%$. % todo add note for LSB
+  il produttore indica un'incertezza massima assoluta di $\pm 2LSB \approx 0.2\%$.
   Questo valore tiene conto di tutte le possibili fonti di errore interne
   all’\emph{ADC} ed è da considerarsi come limite superiore.
   Per quanto riguarda l'incertezza del potenziale di riferimento, abbiamo
@@ -69,10 +69,10 @@
   % Questa incertezza è data dall'allineamento del sensore.
   A causa di limitazioni strumentali, non ci è stato possibile ottenere un campione
   numeroso di misure per ogni angolo. Possiamo ottenere ugualmente
-  una stima delle incertezze casuali facendo le assunzioni: % fixme no fare pls
-  - Le misure di intensità sono distribuite in modo normale attorno a un valore
-    medio $\mu_i$, proprio di ogni angolo.
-  - Tra un angolo e un altro la distribuzione differisce solo per la media e non per la
+  una stima delle incertezze casuali assumendo che: % fixme scrivi che non abbiamo cosniderato l'errore del servo da qualche parte
+  1) le misure di intensità sono distribuite in modo normale attorno a un valore
+    medio $\mu_i$, proprio di ogni angolo;
+  2) tra un angolo e un altro la distribuzione differisce solo per la media e non per la
     deviazione standard $\sigma$.
   Queste sono giustificate dal fatto che il modo in cui vengono raccolti i dati
   non è dipendente dall'angolo a cui si trova il sensore.
