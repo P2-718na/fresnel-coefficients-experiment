@@ -61,6 +61,11 @@ ax1=plt.subplot(gs[1])
 difference=np.subtract(fitted_y,y)
 residual=ax1.plot(x,difference,label='Residuo',color='green',linewidth='.5')
 dataplot=ax1.scatter(x,difference,marker='o',s=3,color='green')
+zero=np.empty(len(y))
+zero.fill(0)
+#errorsplot = ax1.errorbar(x,zero,yerr=ysigma,fmt='none',markersize=2,color='lime',label='Errori',elinewidth=.8,capsize=1.2, alpha=0)
+ax1.axhline(y=0, color='black', linestyle='--',lw=0.8)
+ax1.fill_between(x, -ysigma, ysigma, alpha=0.1, color="red", label="Barre di\nerrore")
 
 
 #cosmetic
