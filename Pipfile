@@ -1,6 +1,7 @@
 [scripts]
 "build:report" = "sh ./scripts/build:report.sh"
 "build:graphs" = "sh ./scripts/build:graphs.sh"
+"watch:report" = "nodemon -e tex --watch ./docs/report --exec ./scripts/build:report.sh"
 
 [packages]
 jupyter = "*"

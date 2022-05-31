@@ -1,0 +1,56 @@
+Quando un raggio luminoso colpisce una superficie di separazione tra due
+dielettrici con indici di rifrazione diversi, si possono verificare
+i fenomeni della riflessione e rifrazione.
+Le equazioni di Fresnel, derivabili direttamente dalle equazioni di Maxwell,
+descrivono un aspetto di questo comportamento, prevedendo quale frazione d'intensità
+luminosa viene riflessa e quale rifratta. Se indichiamo con $R_\pi$ e $R_\sigma$ le
+frazioni d'intensità luminosa riflessa polarizzate, rispettivamente, parallelamente
+e perpendicolarmente al piano d'incidenza, si può dimostrare che valgono:
+%
+\begin{equation}
+  R_\pi = \frac {
+    n_2 \cos{\theta_i} - n_1 \cos{\theta_t}
+  } {
+    n_2 \cos{\theta_i} + n_1 \cos{\theta_t}
+  }\label{eq:fresnel-eq-p}
+\end{equation}
+
+\begin{equation}
+  R_\sigma = \frac {
+    n_1 \cos{\theta_i} - n_2 \cos{\theta_t}
+  } {
+    n_1 \cos{\theta_i} + n_2 \cos{\theta_t}
+  }\label{eq:fresnel-eq-s}
+\end{equation}
+%
+\noindent dove $n_1$ e $n_2$ sono gli indici di rifrazione dei due mezzi, $\theta_i$ e
+$\theta_t$ sono gli angoli d'incidenza e rifrazione\footnote{La $t$ in $\theta_t$ sta per "angolo trasmesso", come da convenzione.} del raggio luminoso.
+Una dimostrazione rigorosa di come si ricavino le equazioni \eqref{eq:fresnel-eq-p} e \eqref{eq:fresnel-eq-s} non è oggetto
+di questo testo;
+si veda Mazzoldi\cite{mazzoldi98} per ulteriori approfondimenti.
+
+Variando $\theta_i$ e misurando l’intensità del raggio riflesso,
+ci aspettiamo di osservare l'andamento previsto dalle equazioni \eqref{eq:fresnel-eq-p} e \eqref{eq:fresnel-eq-s}, a meno di una
+costante moltiplicativa.
+Il valore di $\theta_t$ viene ricavato dalla legge di Snell per la rifrazione:
+%
+\begin{equation}
+  \frac {\sin{\theta_i}} {\sin{\theta_t}} = \frac {n_2} {n_1}
+  \label{eq:legge-snell}
+\end{equation}
+%
+\noindent Le formule prevedono che $R_\pi$ si annulli per un certo valore di $\theta_i$,
+che indicheremo con $\theta_B$.
+Questo angolo prende il nome di Angolo di Brewster. Imponendo che si annulli il
+numeratore nell'equazione \eqref{eq:fresnel-eq-p}, si ricava la legge di Brewster:
+%
+\begin{equation}
+  \theta_B = \arctan{
+    \frac {n_2} {n_1}
+  }\label{eq:legge-brewster}
+\end{equation}
+%
+\noindent  L’angolo di Brewster gode di alcune proprietà utili in diverse applicazioni
+sperimentali.
+Per approfondimenti, si consulti Mazzoldi\cite{mazzoldi98} e Lipson\cite{lipson20}.
+\endinput
