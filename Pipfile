@@ -4,5 +4,7 @@
 "watch:report" = "nodemon -e tex --watch ./docs/report --exec ./scripts/build:report.sh"
 
 [packages]
-jupyter = "*"
-metakernel = "*"
+requests = "*"
+numpy = "*"
+pyserial = "*"
+

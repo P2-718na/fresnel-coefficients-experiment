@@ -1,0 +1,17 @@
+Ok, so, very funny, I lost basically all of the code used to move the servo,
+because I am stupid.
+
+I had a folder with all the code. When I decided it was time to upload that on
+GitHub, I created a new repository.
+However, I must have been drunk or something because I deleted the folder with
+the code BEFORE copying it to the repo.
+
+I noticed this mistake only now (2 weeks after), and now it's definitely too
+late to recover anything. Very sad.
+
+
+This is what I found on my zsh history:
+: 1653377174:0;j repo uni
+: 1653377180:0;rmrf fresnel-coefficients
+: 1653377212:0;git clone git@github.com:P2-718na/fresnel-coefficients-experiment.git
+
