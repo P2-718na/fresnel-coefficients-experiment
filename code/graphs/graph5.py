@@ -8,18 +8,20 @@ import numpy as np
 #see https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot for possible format strings
 
 #load data
-data=np.loadtxt("./data/pi/run3-parabola.csv")
+data=np.loadtxt("./data/aaa/47kohm.csv")
 x=data[:,0]
 y=data[:,1]
-ysigma=data[:,3]
+#ysigma=data[:,3]
 
-def functionP(x,I_0,deltaTheta,n2):
+def functionP(x, I_0, deltaTheta, n2):
    return I_0 * np.square(
        ((np.sqrt(1-np.square(((1/n2)*np.sin(np.radians(x-deltaTheta))))))-n2*np.cos(np.radians(x-deltaTheta)))
         /((np.sqrt(1-np.square(((1/n2)*np.sin(np.radians(x-deltaTheta))))))+n2*np.cos(np.radians(x-deltaTheta)))
 )
 def functionS(x):
-   return 0.29*np.square(x-56.8)
+   deltaX = 7500
+   deltaY = 3
+   return 0.29*np.square(x-56.8) + deltaY
 
 #fitted values
 n2=1.490
@@ -29,7 +31,7 @@ I_0=1
 
 
 #for plotting functions
-functionX = np.arange(0, 90, 0.01)
+functionX = np.arange(6500, 8500, 100)
 
 #for calculating residual, swap between functionS and functionP
 #fitted_y = functionS(x,I_0,deltaTheta,n2)
@@ -50,7 +52,7 @@ ax0=plt.axes()
 #plt.fill_between(functionX,functionS(functionX),functionS(functionX),color='orange',edgecolor='orange',alpha=0.5,label='Andamento\nprevisto')
 #dataplot=ax0.scatter(x,y,marker='o',s=3,color='red',label='Dati')
 fitplot = ax0.plot(functionX,functionS(functionX),color='blue',linewidth='.6',label='Fit')
-dataplot=ax0.errorbar(x,y,yerr=ysigma,fmt='o',markersize=2,color='red',label='Dati',elinewidth=.8,capsize=1.2)
+dataplot=ax0.errorbar(x,y, fmt='o',markersize=2,color='red',label='Dati',elinewidth=.8,capsize=1.2)
 
 #funzione reale se la vuoi mettere alla fine, secondo me ha senso a quel punto farla a tratti o cose del genere
 #realfunc = ax0.plot(functionX,functionP(functionX,I_0,deltaTheta,n2),color='blue',linewidth='.3',label='fit',ls='--')
